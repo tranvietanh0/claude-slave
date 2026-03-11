@@ -56,7 +56,7 @@ cp -r user-config/* ~/.claude/
 | Command | Description |
 |---------|-------------|
 | `/brainstorm` | Brainstorm & plan projects with Q&A |
-| `/cp` | Commit and push changes |
+| `/cp` | Add, commit and push (git add + commit + push) |
 | `/fix` | Quick fix for errors |
 | `/pr` | Create a pull request |
 | `/test` | Run tests and fix failures |

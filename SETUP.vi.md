@@ -75,7 +75,7 @@ claude
 ```
 
 Sau do go `/` de xem cac commands co san. Ban se thay:
-- `/cp` - Commit va push
+- `/cp` - Add, commit va push
 - `/fix` - Fix nhanh
 - `/pr` - Tao PR
 - `/test` - Chay tests

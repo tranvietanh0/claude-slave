@@ -75,7 +75,7 @@ claude
 ```
 
 Then type `/` to see available commands. You should see:
-- `/cp` - Commit and push
+- `/cp` - Add, commit and push
 - `/fix` - Quick fix
 - `/pr` - Create PR
 - `/test` - Run tests
