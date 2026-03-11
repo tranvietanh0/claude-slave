@@ -55,6 +55,7 @@ cp -r user-config/* ~/.claude/
 
 | Command | Mo Ta |
 |---------|-------|
+| `/brainstorm` | Brainstorm & len ke hoach du an voi Q&A |
 | `/cp` | Commit va push thay doi |
 | `/fix` | Fix nhanh loi |
 | `/pr` | Tao pull request |
