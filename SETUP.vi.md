@@ -75,6 +75,7 @@ claude
 ```
 
 Sau do go `/` de xem cac commands co san. Ban se thay:
+- `/brainstorm` - Brainstorm & len ke hoach du an voi Q&A
 - `/cp` - Add, commit va push
 - `/fix` - Fix nhanh
 - `/pr` - Tao PR

@@ -75,6 +75,7 @@ claude
 ```
 
 Then type `/` to see available commands. You should see:
+- `/brainstorm` - Brainstorm & plan projects with Q&A
 - `/cp` - Add, commit and push
 - `/fix` - Quick fix
 - `/pr` - Create PR
