@@ -1,17 +1,17 @@
 # Claude Code Skills & Commands
 
-Bo suu tap skills, commands va cau hinh cho [Claude Code](https://claude.com/claude-code).
+Bộ sưu tập skills, commands và cấu hình cho [Claude Code](https://claude.com/claude-code).
 
-## Tinh Nang
+## Tính Năng
 
-- **Skills**: Cac hanh vi theo ngu canh giup nang cao kha nang cua Claude
-- **Commands**: Lenh slash nhanh cho cac tac vu thuong dung
-- **Templates**: Mau de tao skill/command moi
-- **Scripts cai dat da nen tang**: Hoat dong tren Windows, Linux va macOS
+- **Skills**: Các hành vi theo ngữ cảnh giúp nâng cao khả năng của Claude
+- **Commands**: Lệnh slash nhanh cho các tác vụ thường dùng
+- **Templates**: Mẫu để tạo skill/command mới
+- **Scripts cài đặt đa nền tảng**: Hoạt động trên Windows, Linux và macOS
 
-## Bat Dau Nhanh
+## Bắt Đầu Nhanh
 
-### Cach 1: Dung script cai dat
+### Cách 1: Dùng script cài đặt
 
 **Linux/macOS:**
 ```bash
@@ -27,70 +27,70 @@ cd claude-slave
 .\scripts\install.ps1
 ```
 
-**Node.js (moi nen tang):**
+**Node.js (mọi nền tảng):**
 ```bash
 git clone https://github.com/yourusername/claude-slave.git
 cd claude-slave
 node scripts/install.js
 ```
 
-### Cach 2: Cai dat thu cong
+### Cách 2: Cài đặt thủ công
 
-Copy noi dung `user-config/` vao `~/.claude/`:
+Copy nội dung `user-config/` vào `~/.claude/`:
 ```bash
 cp -r user-config/* ~/.claude/
 ```
 
-## Cac Skills Co San
+## Các Skills Có Sẵn
 
-| Skill | Mo Ta |
+| Skill | Mô Tả |
 |-------|-------|
-| `quick-debug` | Debug nhanh - phan tich loi, de xuat fix |
-| `vietnamese-coder` | Ho tro tieng Viet cho developer |
-| `code-review` | Review chat luong code va de xuat cai thien |
-| `doc-gen` | Tao documentation (JSDoc, README, etc.) |
-| `security-check` | Kiem tra lo hong bao mat |
+| `quick-debug` | Debug nhanh - phân tích lỗi, đề xuất fix |
+| `vietnamese-coder` | Hỗ trợ tiếng Việt cho developer |
+| `code-review` | Review chất lượng code và đề xuất cải thiện |
+| `doc-gen` | Tạo documentation (JSDoc, README, etc.) |
+| `security-check` | Kiểm tra lỗ hổng bảo mật |
 
-## Cac Commands Co San
+## Các Commands Có Sẵn
 
-| Command | Mo Ta |
+| Command | Mô Tả |
 |---------|-------|
-| `/brainstorm` | Brainstorm & len ke hoach du an voi Q&A |
-| `/cp` | Add, commit va push (git add + commit + push) |
-| `/fix` | Fix nhanh loi |
-| `/pr` | Tao pull request |
-| `/test` | Chay tests va fix loi |
+| `/brainstorm` | Brainstorm & lên kế hoạch dự án với Q&A |
+| `/cp` | Add, commit và push (git add + commit + push) |
+| `/fix` | Fix nhanh lỗi |
+| `/pr` | Tạo pull request |
+| `/test` | Chạy tests và fix lỗi |
 | `/refactor` | Refactor code |
-| `/explain` | Giai thich code |
-| `/deploy` | Deploy len production/staging |
+| `/explain` | Giải thích code |
+| `/deploy` | Deploy lên production/staging |
 
-## Tai Lieu
+## Tài Liệu
 
-- [Huong Dan Cai Dat](SETUP.vi.md) - Huong dan chi tiet
-- [English Guide](README.md) - Tai lieu tieng Anh
+- [Hướng Dẫn Cài Đặt](SETUP.vi.md) - Hướng dẫn chi tiết
+- [English Guide](README.md) - Tài liệu tiếng Anh
 
-## Tao Skill/Command Moi
+## Tạo Skill/Command Mới
 
-Xem thu muc `templates/` de co cac mau san:
+Xem thư mục `templates/` để có các mẫu sẵn:
 
-- `templates/skill-template/SKILL.md` - Mau tao skill moi
-- `templates/command-template.md` - Mau tao command moi
-- `templates/agent-template.md` - Mau tao subagent moi
+- `templates/skill-template/SKILL.md` - Mẫu tạo skill mới
+- `templates/command-template.md` - Mẫu tạo command mới
+- `templates/agent-template.md` - Mẫu tạo subagent mới
 
-## Cau Truc Thu Muc
+## Cấu Trúc Thư Mục
 
 ```
 claude-slave/
-├── user-config/        # Copy vao ~/.claude/
-│   ├── skills/         # Skills cap user
-│   └── commands/       # Commands cap user
-├── project-config/     # Copy vao project/.claude/
-│   ├── skills/         # Skills rieng cho project
+├── user-config/        # Copy vào ~/.claude/
+│   ├── skills/         # Skills cấp user
+│   └── commands/       # Commands cấp user
+├── project-config/     # Copy vào project/.claude/
+│   ├── skills/         # Skills riêng cho project
 │   └── agents/         # Custom subagents
-├── templates/          # Mau tao moi
-└── scripts/            # Scripts cai dat
+├── templates/          # Mẫu tạo mới
+└── scripts/            # Scripts cài đặt
 ```
 
-## Giay Phep
+## Giấy Phép
 
 MIT

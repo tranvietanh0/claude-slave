@@ -1,14 +1,14 @@
-# Huong Dan Cai Dat
+# Hướng Dẫn Cài Đặt
 
-## Yeu Cau
+## Yêu Cầu
 
-- [Claude Code](https://claude.com/claude-code) da cai dat va cau hinh
-- Git da cai dat
-- De dung script: Node.js (tuy chon, cho script da nen tang)
+- [Claude Code](https://claude.com/claude-code) đã cài đặt và cấu hình
+- Git đã cài đặt
+- Để dùng script: Node.js (tùy chọn, cho script đa nền tảng)
 
-## Cac Cach Cai Dat
+## Các Cách Cài Đặt
 
-### Cach 1: Script Tu Dong (Khuyen Nghi)
+### Cách 1: Script Tự Động (Khuyên Dùng)
 
 #### Linux/macOS
 ```bash
@@ -25,26 +25,26 @@ cd claude-slave
 .\scripts\install.ps1
 ```
 
-#### Node.js (Da nen tang)
+#### Node.js (Đa nền tảng)
 ```bash
 git clone https://github.com/yourusername/claude-slave.git
 cd claude-slave
 node scripts/install.js
 ```
 
-Script se:
-1. Backup config hien tai (neu co)
-2. Copy skills va commands vao `~/.claude/`
-3. Hien thi cac commands co san
+Script sẽ:
+1. Backup config hiện tại (nếu có)
+2. Copy skills và commands vào `~/.claude/`
+3. Hiển thị các commands có sẵn
 
-### Cach 2: Cai Dat Thu Cong
+### Cách 2: Cài Đặt Thủ Công
 
 1. Clone repository:
 ```bash
 git clone https://github.com/yourusername/claude-slave.git
 ```
 
-2. Copy user config vao thu muc Claude config:
+2. Copy user config vào thư mục Claude config:
 ```bash
 # Linux/macOS
 cp -r claude-slave/user-config/* ~/.claude/
@@ -53,126 +53,126 @@ cp -r claude-slave/user-config/* ~/.claude/
 Copy-Item -Recurse claude-slave\user-config\* $env:USERPROFILE\.claude\
 ```
 
-3. Khoi dong lai Claude Code de ap dung thay doi.
+3. Khởi động lại Claude Code để áp dụng thay đổi.
 
-## Cau Hinh Rieng Cho Project
+## Cấu Hình Riêng Cho Project
 
-De dung skills/commands rieng cho project:
+Để dùng skills/commands riêng cho project:
 
-1. Copy project config vao project cua ban:
+1. Copy project config vào project của bạn:
 ```bash
 cp -r claude-slave/project-config/* your-project/.claude/
 ```
 
-2. Chinh sua `your-project/.claude/CLAUDE.md` voi huong dan rieng cho project.
+2. Chỉnh sửa `your-project/.claude/CLAUDE.md` với hướng dẫn riêng cho project.
 
-## Kiem Tra
+## Kiểm Tra
 
-Sau khi cai dat, kiem tra bang cach chay Claude Code:
+Sau khi cài đặt, kiểm tra bằng cách chạy Claude Code:
 
 ```bash
 claude
 ```
 
-Sau do go `/` de xem cac commands co san. Ban se thay:
-- `/brainstorm` - Brainstorm & len ke hoach du an voi Q&A
-- `/cp` - Add, commit va push
+Sau đó gõ `/` để xem các commands có sẵn. Bạn sẽ thấy:
+- `/brainstorm` - Brainstorm & lên kế hoạch dự án với Q&A
+- `/cp` - Add, commit và push
 - `/fix` - Fix nhanh
-- `/pr` - Tao PR
-- `/test` - Chay tests
+- `/pr` - Tạo PR
+- `/test` - Chạy tests
 - `/refactor` - Refactor code
-- `/explain` - Giai thich code
+- `/explain` - Giải thích code
 - `/deploy` - Deploy
 
-## Tao Skill Moi
+## Tạo Skill Mới
 
 1. Copy template:
 ```bash
 cp -r templates/skill-template ~/.claude/skills/my-skill
 ```
 
-2. Chinh sua `~/.claude/skills/my-skill/SKILL.md`:
+2. Chỉnh sửa `~/.claude/skills/my-skill/SKILL.md`:
 ```markdown
 ---
 name: my-skill
-description: Skill nay lam gi
+description: Skill này làm gì
 ---
 
 # My Skill
 
-Huong dan cho Claude...
+Hướng dẫn cho Claude...
 ```
 
-3. Khoi dong lai Claude Code.
+3. Khởi động lại Claude Code.
 
-## Tao Command Moi
+## Tạo Command Mới
 
 1. Copy template:
 ```bash
 cp templates/command-template.md ~/.claude/commands/my-command.md
 ```
 
-2. Chinh sua `~/.claude/commands/my-command.md`:
+2. Chỉnh sửa `~/.claude/commands/my-command.md`:
 ```markdown
 ---
-description: Command nay lam gi
+description: Command này làm gì
 allowed-tools: Read, Edit, Bash(npm:*)
 ---
 
 ## Task
 
-Claude se lam gi khi `/my-command` duoc goi...
+Claude sẽ làm gì khi `/my-command` được gọi...
 ```
 
-3. Khoi dong lai Claude Code.
+3. Khởi động lại Claude Code.
 
-## Cap Nhat
+## Cập Nhật
 
-De cap nhat len phien ban moi nhat:
+Để cập nhật lên phiên bản mới nhất:
 
 ```bash
 cd claude-slave
 git pull
-./scripts/install.sh  # hoac script phu hop voi nen tang cua ban
+./scripts/install.sh  # hoặc script phù hợp với nền tảng của bạn
 ```
 
-## Go Cai Dat
+## Gỡ Cài Đặt
 
-De xoa tat ca skills va commands:
+Để xóa tất cả skills và commands:
 
 ```bash
 rm -rf ~/.claude/skills
 rm -rf ~/.claude/commands
 ```
 
-## Xu Ly Loi
+## Xử Lý Lỗi
 
-### Commands khong xuat hien
+### Commands không xuất hiện
 
-1. Dam bao files nam dung vi tri (`~/.claude/commands/`)
-2. Kiem tra phan mo rong file la `.md`
-3. Khoi dong lai Claude Code
+1. Đảm bảo files nằm đúng vị trí (`~/.claude/commands/`)
+2. Kiểm tra phần mở rộng file là `.md`
+3. Khởi động lại Claude Code
 
-### Skills khong hoat dong
+### Skills không hoạt động
 
-1. Kiem tra truong `description` cua skill phu hop voi use case
-2. Xac nhan skill nam tai `~/.claude/skills/<skill-name>/SKILL.md`
-3. Khoi dong lai Claude Code
+1. Kiểm tra trường `description` của skill phù hợp với use case
+2. Xác nhận skill nằm tại `~/.claude/skills/<skill-name>/SKILL.md`
+3. Khởi động lại Claude Code
 
-### Loi quyen truy cap
+### Lỗi quyền truy cập
 
 ```bash
 # Linux/macOS
 chmod -R 755 ~/.claude/skills ~/.claude/commands
 ```
 
-## Cau Hoi Thuong Gap
+## Câu Hỏi Thường Gặp
 
-**H: Toi co the co ca skills cap user va cap project khong?**
-D: Co! Skills cap user (`~/.claude/`) ap dung toan cuc. Skills cap project (`project/.claude/`) chi ap dung cho project do.
+**H: Tôi có thể có cả skills cấp user và cấp project không?**
+Đ: Có! Skills cấp user (`~/.claude/`) áp dụng toàn cục. Skills cấp project (`project/.claude/`) chỉ áp dụng cho project đó.
 
-**H: Lam sao de tam tat skill?**
-D: Doi ten thu muc skill (vd: `quick-debug` thanh `_quick-debug`).
+**H: Làm sao để tạm tắt skill?**
+Đ: Đổi tên thư mục skill (vd: `quick-debug` thành `_quick-debug`).
 
-**H: Skills co the goi external APIs khong?**
-D: Skills co the dung cac tools duoc phep nhu `Bash` de thuc hien curl requests, nhung can than voi bao mat.
+**H: Skills có thể gọi external APIs không?**
+Đ: Skills có thể dùng các tools được phép như `Bash` để thực hiện curl requests, nhưng cẩn thận với bảo mật.
