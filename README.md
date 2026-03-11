@@ -1,17 +1,24 @@
-# Claude Code Skills & Commands
+# AI Coding Assistant - Skills & Commands
 
-A collection of reusable skills, commands, and configurations for [Claude Code](https://claude.com/claude-code).
+A collection of reusable skills, commands, and configurations for **Claude Code** and **OpenCode**.
+
+## Supported Tools
+
+| Tool | Config Directory |
+|------|------------------|
+| Claude Code | `~/.claude/` |
+| OpenCode | `~/.opencode/` |
 
 ## Features
 
-- **Skills**: Contextual behaviors that enhance Claude's capabilities
+- **Skills**: Contextual behaviors that enhance AI capabilities
 - **Commands**: Quick slash commands for common tasks
 - **Templates**: Starter templates for creating your own skills/commands
 - **Cross-platform install scripts**: Works on Windows, Linux, and macOS
 
 ## Quick Start
 
-### Option 1: Using install script
+### Using install script
 
 **Linux/macOS:**
 ```bash
@@ -34,11 +41,19 @@ cd claude-slave
 node scripts/install.js
 ```
 
-### Option 2: Manual installation
+The script will ask you to choose:
+1. Claude Code only
+2. OpenCode only
+3. Both
 
-Copy the contents of `user-config/` to `~/.claude/`:
+### Manual installation
+
 ```bash
-cp -r user-config/* ~/.claude/
+# For Claude Code
+cp -r claude/* ~/.claude/
+
+# For OpenCode
+cp -r opencode/* ~/.opencode/
 ```
 
 ## Available Skills
@@ -66,31 +81,46 @@ cp -r user-config/* ~/.claude/
 | `/explain` | Explain code |
 | `/deploy` | Deploy to production/staging |
 
-## Documentation
-
-- [Setup Guide](SETUP.md) - Detailed installation instructions
-- [Vietnamese Guide](README.vi.md) - Documentation in Vietnamese
-
-## Creating Custom Skills/Commands
-
-See the `templates/` directory for starter templates:
-
-- `templates/skill-template/SKILL.md` - Template for new skills
-- `templates/command-template.md` - Template for new commands
-- `templates/agent-template.md` - Template for custom subagents
-
 ## Project Structure
 
 ```
 claude-slave/
-├── user-config/        # Copy to ~/.claude/
-│   ├── skills/         # User-level skills
-│   └── commands/       # User-level commands
-├── project-config/     # Copy to project/.claude/
-│   ├── skills/         # Project-specific skills
-│   └── agents/         # Custom subagents
-├── templates/          # Templates for creating new items
-└── scripts/            # Installation scripts
+├── claude/                 # Claude Code config
+│   ├── skills/
+│   ├── commands/
+│   ├── settings.json       # Bypass mode
+│   └── settings.safe.json  # Safe mode
+├── opencode/               # OpenCode config
+│   ├── skills/
+│   ├── commands/
+│   ├── settings.json
+│   └── settings.safe.json
+├── project-config/         # Project-specific templates
+├── templates/              # Templates for creating new items
+└── scripts/                # Installation scripts
+```
+
+## Documentation
+
+- [Setup Guide](SETUP.md) - Detailed installation instructions
+- [Hướng dẫn tiếng Việt](README.vi.md) - Vietnamese documentation
+
+## Permission Modes
+
+### Bypass Mode (default)
+Full permissions - no confirmation needed:
+```json
+{
+  "permissions": {
+    "allow": ["Bash(*)", "Read(*)", "Write(*)", "Edit(*)", "..."]
+  }
+}
+```
+
+### Safe Mode
+Read-only permissions:
+```bash
+cp ~/.claude/settings.safe.json ~/.claude/settings.json
 ```
 
 ## License

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * Claude Code Skills & Commands Installer
+ * Claude Code & OpenCode Skills Installer
  * Cross-platform Node.js script
  */
 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const readline = require('readline');
 
-// Colors for console output
 const colors = {
   reset: '\x1b[0m',
   red: '\x1b[31m',
@@ -24,12 +24,10 @@ function log(message, color = 'reset') {
 
 function copyRecursive(src, dest) {
   const stats = fs.statSync(src);
-
   if (stats.isDirectory()) {
     if (!fs.existsSync(dest)) {
       fs.mkdirSync(dest, { recursive: true });
     }
-
     const entries = fs.readdirSync(src);
     for (const entry of entries) {
       copyRecursive(path.join(src, entry), path.join(dest, entry));
@@ -39,79 +37,82 @@ function copyRecursive(src, dest) {
   }
 }
 
-function main() {
+function installClaude(repoDir) {
+  const claudeDir = path.join(os.homedir(), '.claude');
+  log('Installing Claude Code config...', 'green');
+
+  // Create directories
+  fs.mkdirSync(path.join(claudeDir, 'skills'), { recursive: true });
+  fs.mkdirSync(path.join(claudeDir, 'commands'), { recursive: true });
+  fs.mkdirSync(path.join(claudeDir, 'backups'), { recursive: true });
+
+  // Copy
+  copyRecursive(path.join(repoDir, 'claude', 'skills'), path.join(claudeDir, 'skills'));
+  copyRecursive(path.join(repoDir, 'claude', 'commands'), path.join(claudeDir, 'commands'));
+  fs.copyFileSync(path.join(repoDir, 'claude', 'settings.json'), path.join(claudeDir, 'settings.json'));
+
+  log('✅ Claude Code installed!', 'green');
+}
+
+function installOpenCode(repoDir) {
+  const openCodeDir = path.join(os.homedir(), '.opencode');
+  log('Installing OpenCode config...', 'green');
+
+  // Create directories
+  fs.mkdirSync(path.join(openCodeDir, 'skills'), { recursive: true });
+  fs.mkdirSync(path.join(openCodeDir, 'commands'), { recursive: true });
+  fs.mkdirSync(path.join(openCodeDir, 'backups'), { recursive: true });
+
+  // Copy
+  copyRecursive(path.join(repoDir, 'opencode', 'skills'), path.join(openCodeDir, 'skills'));
+  copyRecursive(path.join(repoDir, 'opencode', 'commands'), path.join(openCodeDir, 'commands'));
+  fs.copyFileSync(path.join(repoDir, 'opencode', 'settings.json'), path.join(openCodeDir, 'settings.json'));
+
+  log('✅ OpenCode installed!', 'green');
+}
+
+async function main() {
   log('==================================', 'cyan');
-  log(' Claude Code Skills Installer', 'cyan');
+  log(' Skills & Commands Installer', 'cyan');
   log('==================================', 'cyan');
   console.log('');
 
-  // Paths
   const scriptDir = __dirname;
   const repoDir = path.dirname(scriptDir);
-  const homeDir = os.homedir();
-  const claudeDir = path.join(homeDir, '.claude');
 
-  // Create Claude config directory if needed
-  if (!fs.existsSync(claudeDir)) {
-    log('Creating Claude config directory...', 'yellow');
-    fs.mkdirSync(claudeDir, { recursive: true });
-  }
+  console.log('Chọn công cụ để cài đặt:');
+  console.log('  1) Claude Code');
+  console.log('  2) OpenCode');
+  console.log('  3) Cả hai');
+  console.log('');
 
-  const skillsDir = path.join(claudeDir, 'skills');
-  const commandsDir = path.join(claudeDir, 'commands');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
-  // Backup existing config
-  if (fs.existsSync(skillsDir) || fs.existsSync(commandsDir)) {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const backupDir = path.join(claudeDir, 'backups', `backup-${timestamp}`);
+  rl.question('Lựa chọn [1-3]: ', (choice) => {
+    rl.close();
 
-    log(`Backing up existing config to ${backupDir}`, 'yellow');
-    fs.mkdirSync(backupDir, { recursive: true });
-
-    if (fs.existsSync(skillsDir)) {
-      copyRecursive(skillsDir, path.join(backupDir, 'skills'));
+    switch (choice.trim()) {
+      case '1':
+        installClaude(repoDir);
+        break;
+      case '2':
+        installOpenCode(repoDir);
+        break;
+      case '3':
+        installClaude(repoDir);
+        installOpenCode(repoDir);
+        break;
+      default:
+        log('Invalid choice', 'red');
+        process.exit(1);
     }
 
-    if (fs.existsSync(commandsDir)) {
-      copyRecursive(commandsDir, path.join(backupDir, 'commands'));
-    }
-  }
-
-  // Copy skills
-  log('Installing skills...', 'green');
-  const sourceSkills = path.join(repoDir, 'user-config', 'skills');
-  if (!fs.existsSync(skillsDir)) {
-    fs.mkdirSync(skillsDir, { recursive: true });
-  }
-  copyRecursive(sourceSkills, skillsDir);
-
-  // Copy commands
-  log('Installing commands...', 'green');
-  const sourceCommands = path.join(repoDir, 'user-config', 'commands');
-  if (!fs.existsSync(commandsDir)) {
-    fs.mkdirSync(commandsDir, { recursive: true });
-  }
-  copyRecursive(sourceCommands, commandsDir);
-
-  // List installed items
-  console.log('');
-  log('Installation complete!', 'green');
-  console.log('');
-
-  log('Installed skills:');
-  const skills = fs.readdirSync(skillsDir).filter(f =>
-    fs.statSync(path.join(skillsDir, f)).isDirectory()
-  );
-  skills.forEach(skill => console.log(`  - ${skill}`));
-
-  console.log('');
-  log('Installed commands:');
-  const commands = fs.readdirSync(commandsDir).filter(f => f.endsWith('.md'));
-  commands.forEach(cmd => console.log(`  - /${cmd.replace('.md', '')}`));
-
-  console.log('');
-  log('Please restart Claude Code to apply changes.', 'yellow');
-  console.log('');
+    console.log('');
+    log('Restart your tool to apply changes.', 'yellow');
+  });
 }
 
 main();

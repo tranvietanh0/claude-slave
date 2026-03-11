@@ -1,74 +1,83 @@
-# Claude Code Skills & Commands Installer
+# Claude Code & OpenCode Skills Installer
 # For Windows PowerShell
 
 $ErrorActionPreference = "Stop"
 
 Write-Host "==================================" -ForegroundColor Cyan
-Write-Host " Claude Code Skills Installer" -ForegroundColor Cyan
+Write-Host " Skills & Commands Installer" -ForegroundColor Cyan
 Write-Host "==================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Get script directory
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RepoDir = Split-Path -Parent $ScriptDir
-$ClaudeDir = Join-Path $env:USERPROFILE ".claude"
 
-# Check if Claude config directory exists
-if (-not (Test-Path $ClaudeDir)) {
-    Write-Host "Creating Claude config directory..." -ForegroundColor Yellow
-    New-Item -ItemType Directory -Path $ClaudeDir -Force | Out-Null
-}
+Write-Host "Chon cong cu de cai dat:"
+Write-Host "  1) Claude Code"
+Write-Host "  2) OpenCode"
+Write-Host "  3) Ca hai"
+Write-Host ""
+$choice = Read-Host "Lua chon [1-3]"
 
-# Backup existing config
-$SkillsDir = Join-Path $ClaudeDir "skills"
-$CommandsDir = Join-Path $ClaudeDir "commands"
+function Install-Claude {
+    $ClaudeDir = Join-Path $env:USERPROFILE ".claude"
+    Write-Host "Installing Claude Code config..." -ForegroundColor Green
 
-if ((Test-Path $SkillsDir) -or (Test-Path $CommandsDir)) {
-    $BackupDir = Join-Path $ClaudeDir "backups\backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-    Write-Host "Backing up existing config to $BackupDir" -ForegroundColor Yellow
-    New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+    # Create directories
+    New-Item -ItemType Directory -Path "$ClaudeDir\skills" -Force | Out-Null
+    New-Item -ItemType Directory -Path "$ClaudeDir\commands" -Force | Out-Null
+    New-Item -ItemType Directory -Path "$ClaudeDir\backups" -Force | Out-Null
 
-    if (Test-Path $SkillsDir) {
-        Copy-Item -Path $SkillsDir -Destination $BackupDir -Recurse
+    # Backup
+    $SkillsExist = Test-Path "$ClaudeDir\skills\*"
+    if ($SkillsExist) {
+        $BackupDir = "$ClaudeDir\backups\backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+        New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+        Copy-Item -Path "$ClaudeDir\skills" -Destination $BackupDir -Recurse -ErrorAction SilentlyContinue
+        Copy-Item -Path "$ClaudeDir\commands" -Destination $BackupDir -Recurse -ErrorAction SilentlyContinue
+        Write-Host "Backed up to $BackupDir" -ForegroundColor Yellow
     }
 
-    if (Test-Path $CommandsDir) {
-        Copy-Item -Path $CommandsDir -Destination $BackupDir -Recurse
+    # Copy
+    Copy-Item -Path "$RepoDir\claude\skills\*" -Destination "$ClaudeDir\skills\" -Recurse -Force
+    Copy-Item -Path "$RepoDir\claude\commands\*" -Destination "$ClaudeDir\commands\" -Recurse -Force
+    Copy-Item -Path "$RepoDir\claude\settings.json" -Destination "$ClaudeDir\" -Force
+
+    Write-Host "Claude Code installed!" -ForegroundColor Green
+}
+
+function Install-OpenCode {
+    $OpenCodeDir = Join-Path $env:USERPROFILE ".opencode"
+    Write-Host "Installing OpenCode config..." -ForegroundColor Green
+
+    # Create directories
+    New-Item -ItemType Directory -Path "$OpenCodeDir\skills" -Force | Out-Null
+    New-Item -ItemType Directory -Path "$OpenCodeDir\commands" -Force | Out-Null
+    New-Item -ItemType Directory -Path "$OpenCodeDir\backups" -Force | Out-Null
+
+    # Backup
+    $SkillsExist = Test-Path "$OpenCodeDir\skills\*"
+    if ($SkillsExist) {
+        $BackupDir = "$OpenCodeDir\backups\backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+        New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+        Copy-Item -Path "$OpenCodeDir\skills" -Destination $BackupDir -Recurse -ErrorAction SilentlyContinue
+        Copy-Item -Path "$OpenCodeDir\commands" -Destination $BackupDir -Recurse -ErrorAction SilentlyContinue
+        Write-Host "Backed up to $BackupDir" -ForegroundColor Yellow
     }
+
+    # Copy
+    Copy-Item -Path "$RepoDir\opencode\skills\*" -Destination "$OpenCodeDir\skills\" -Recurse -Force
+    Copy-Item -Path "$RepoDir\opencode\commands\*" -Destination "$OpenCodeDir\commands\" -Recurse -Force
+    Copy-Item -Path "$RepoDir\opencode\settings.json" -Destination "$OpenCodeDir\" -Force
+
+    Write-Host "OpenCode installed!" -ForegroundColor Green
 }
 
-# Copy skills
-Write-Host "Installing skills..." -ForegroundColor Green
-$SourceSkills = Join-Path $RepoDir "user-config\skills"
-if (-not (Test-Path $SkillsDir)) {
-    New-Item -ItemType Directory -Path $SkillsDir -Force | Out-Null
-}
-Copy-Item -Path "$SourceSkills\*" -Destination $SkillsDir -Recurse -Force
-
-# Copy commands
-Write-Host "Installing commands..." -ForegroundColor Green
-$SourceCommands = Join-Path $RepoDir "user-config\commands"
-if (-not (Test-Path $CommandsDir)) {
-    New-Item -ItemType Directory -Path $CommandsDir -Force | Out-Null
-}
-Copy-Item -Path "$SourceCommands\*" -Destination $CommandsDir -Recurse -Force
-
-# List installed items
-Write-Host ""
-Write-Host "Installation complete!" -ForegroundColor Green
-Write-Host ""
-
-Write-Host "Installed skills:"
-Get-ChildItem -Path $SkillsDir -Directory | ForEach-Object {
-    Write-Host "  - $($_.Name)"
+switch ($choice) {
+    "1" { Install-Claude }
+    "2" { Install-OpenCode }
+    "3" { Install-Claude; Install-OpenCode }
+    default { Write-Host "Invalid choice" -ForegroundColor Red; exit 1 }
 }
 
 Write-Host ""
-Write-Host "Installed commands:"
-Get-ChildItem -Path $CommandsDir -Filter "*.md" | ForEach-Object {
-    Write-Host "  - /$($_.BaseName)"
-}
-
-Write-Host ""
-Write-Host "Please restart Claude Code to apply changes." -ForegroundColor Yellow
-Write-Host ""
+Write-Host "Restart your tool to apply changes." -ForegroundColor Yellow

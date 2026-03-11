@@ -1,17 +1,24 @@
-# Claude Code Skills & Commands
+# AI Coding Assistant - Skills & Commands
 
-Bộ sưu tập skills, commands và cấu hình cho [Claude Code](https://claude.com/claude-code).
+Bộ sưu tập skills, commands và cấu hình cho **Claude Code** và **OpenCode**.
+
+## Công Cụ Hỗ Trợ
+
+| Công Cụ | Thư Mục Config |
+|---------|----------------|
+| Claude Code | `~/.claude/` |
+| OpenCode | `~/.opencode/` |
 
 ## Tính Năng
 
-- **Skills**: Các hành vi theo ngữ cảnh giúp nâng cao khả năng của Claude
+- **Skills**: Các hành vi theo ngữ cảnh giúp nâng cao khả năng của AI
 - **Commands**: Lệnh slash nhanh cho các tác vụ thường dùng
 - **Templates**: Mẫu để tạo skill/command mới
 - **Scripts cài đặt đa nền tảng**: Hoạt động trên Windows, Linux và macOS
 
 ## Bắt Đầu Nhanh
 
-### Cách 1: Dùng script cài đặt
+### Dùng script cài đặt
 
 **Linux/macOS:**
 ```bash
@@ -34,11 +41,19 @@ cd claude-slave
 node scripts/install.js
 ```
 
-### Cách 2: Cài đặt thủ công
+Script sẽ hỏi bạn chọn:
+1. Chỉ Claude Code
+2. Chỉ OpenCode
+3. Cả hai
 
-Copy nội dung `user-config/` vào `~/.claude/`:
+### Cài đặt thủ công
+
 ```bash
-cp -r user-config/* ~/.claude/
+# Cho Claude Code
+cp -r claude/* ~/.claude/
+
+# Cho OpenCode
+cp -r opencode/* ~/.opencode/
 ```
 
 ## Các Skills Có Sẵn
@@ -66,31 +81,46 @@ cp -r user-config/* ~/.claude/
 | `/explain` | Giải thích code |
 | `/deploy` | Deploy lên production/staging |
 
+## Cấu Trúc Thư Mục
+
+```
+claude-slave/
+├── claude/                 # Config cho Claude Code
+│   ├── skills/
+│   ├── commands/
+│   ├── settings.json       # Bypass mode
+│   └── settings.safe.json  # Safe mode
+├── opencode/               # Config cho OpenCode
+│   ├── skills/
+│   ├── commands/
+│   ├── settings.json
+│   └── settings.safe.json
+├── project-config/         # Templates cho project
+├── templates/              # Mẫu tạo mới
+└── scripts/                # Scripts cài đặt
+```
+
 ## Tài Liệu
 
 - [Hướng Dẫn Cài Đặt](SETUP.vi.md) - Hướng dẫn chi tiết
 - [English Guide](README.md) - Tài liệu tiếng Anh
 
-## Tạo Skill/Command Mới
+## Chế Độ Permission
 
-Xem thư mục `templates/` để có các mẫu sẵn:
-
-- `templates/skill-template/SKILL.md` - Mẫu tạo skill mới
-- `templates/command-template.md` - Mẫu tạo command mới
-- `templates/agent-template.md` - Mẫu tạo subagent mới
-
-## Cấu Trúc Thư Mục
-
+### Bypass Mode (mặc định)
+Toàn quyền - không cần xác nhận:
+```json
+{
+  "permissions": {
+    "allow": ["Bash(*)", "Read(*)", "Write(*)", "Edit(*)", "..."]
+  }
+}
 ```
-claude-slave/
-├── user-config/        # Copy vào ~/.claude/
-│   ├── skills/         # Skills cấp user
-│   └── commands/       # Commands cấp user
-├── project-config/     # Copy vào project/.claude/
-│   ├── skills/         # Skills riêng cho project
-│   └── agents/         # Custom subagents
-├── templates/          # Mẫu tạo mới
-└── scripts/            # Scripts cài đặt
+
+### Safe Mode
+Chỉ đọc:
+```bash
+cp ~/.claude/settings.safe.json ~/.claude/settings.json
 ```
 
 ## Giấy Phép
