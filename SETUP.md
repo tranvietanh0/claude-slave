@@ -81,6 +81,7 @@ Then type `/` to see available commands. You should see:
 - `/pr` - Create PR
 - `/test` - Run tests
 - `/refactor` - Refactor code
+- `/rvc` - Review code (SOLID, maintainability, scalability)
 - `/explain` - Explain code
 - `/deploy` - Deploy
 

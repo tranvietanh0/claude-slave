@@ -61,6 +61,7 @@ cp -r user-config/* ~/.claude/
 | `/pr` | Create a pull request |
 | `/test` | Run tests and fix failures |
 | `/refactor` | Refactor code |
+| `/rvc` | Review code - SOLID, maintainability, scalability |
 | `/explain` | Explain code |
 | `/deploy` | Deploy to production/staging |
 

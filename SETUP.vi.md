@@ -81,6 +81,7 @@ Sau đó gõ `/` để xem các commands có sẵn. Bạn sẽ thấy:
 - `/pr` - Tạo PR
 - `/test` - Chạy tests
 - `/refactor` - Refactor code
+- `/rvc` - Review code (SOLID, maintainability, scalability)
 - `/explain` - Giải thích code
 - `/deploy` - Deploy
 

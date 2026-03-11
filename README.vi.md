@@ -61,6 +61,7 @@ cp -r user-config/* ~/.claude/
 | `/pr` | Tạo pull request |
 | `/test` | Chạy tests và fix lỗi |
 | `/refactor` | Refactor code |
+| `/rvc` | Review code - đánh giá SOLID, maintainability, scalability |
 | `/explain` | Giải thích code |
 | `/deploy` | Deploy lên production/staging |
 
