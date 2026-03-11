@@ -129,4 +129,12 @@ Create `plan.md` file with this structure:
 1. Brief codebase analysis
 2. Q&A questions (wait for answers)
 3. After answers: Create `plan.md`
-4. Ask user to review: "Xin hay review plan.md va cho toi biet neu can chinh sua gi"
+4. Ask user to review:
+
+```
+📋 Đã tạo plan.md
+
+Xin hãy review và cho tôi biết nếu cần chỉnh sửa.
+
+Khi OK, gõ `/go` để bắt đầu triển khai code.
+```

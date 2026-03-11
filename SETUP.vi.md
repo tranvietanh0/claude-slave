@@ -76,6 +76,7 @@ claude
 
 Sau đó gõ `/` để xem các commands có sẵn. Bạn sẽ thấy:
 - `/brainstorm` - Brainstorm & lên kế hoạch dự án với Q&A
+- `/go` - Implement plan (sau khi brainstorm)
 - `/cp` - Add, commit và push
 - `/fix` - Fix nhanh
 - `/pr` - Tạo PR
