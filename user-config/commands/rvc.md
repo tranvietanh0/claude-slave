@@ -6,9 +6,8 @@ allowed-tools: Read, Glob, Grep
 ## Context
 
 - Current directory: !`pwd`
-- Project structure: !`find . -type f -name "*.ts" -o -name "*.js" -o -name "*.py" -o -name "*.go" -o -name "*.java" 2>/dev/null | head -30 || ls -la`
-- Package.json: !`cat package.json 2>/dev/null | head -20 || echo "No package.json"`
-- Git changes: !`git diff --stat HEAD~5 2>/dev/null | head -20 || echo "No git history"`
+- Project files: !`ls -la`
+- Git status: !`git status --short 2>/dev/null`
 
 ## Task
 
